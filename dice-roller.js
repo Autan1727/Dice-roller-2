@@ -1,5 +1,5 @@
-const scoreResult = document.querySelector('.score'); // class ile seçiyoruz
-const values = [];
+const scoreResult = document.querySelector('.score');
+const yenidenButton = document.querySelector('.yeniden')
 const images = [];
 let score = 5;
 
@@ -13,22 +13,27 @@ function rollDice() {
     if (numOfDice > 10) {
         diceResult.textContent = 'Please enter a number between 0 to 10';
     } else if (numOfDice == 2) {
-        for (let i = 0; i < numOfDice; i++) {
-            const value = Math.floor(Math.random() * 6) + 1;
-            values.push(value);
-            images.push(`<img src="DR-images/${value}.png">`);
-        }
-        diceResult.textContent = `dice: ${values.join(', ')}`;
-        diceImages.innerHTML = images.join('');
+        
         if(score >= 20) {
           scoreResult.textContent = 'kazandınız'
+          yenidenButton.classList.add('yeniden-2')
         }
          else if (score <= 0) {
             console.log('you dont have enough score to play!');
-            scoreResult.textContent = 'Oynayacak puanınız kalmadı yeniden oynamak için sayfayı yenileyin'
+            scoreResult.textContent = 'Oynayacak puanınız kalmadı!'
+            yenidenButton.classList.add('yeniden-2')
         } 
         
          else {
+            
+            for (let i = 0; i < numOfDice; i++) {
+                const value = Math.floor(Math.random() * 6) + 1;
+                values.push(value);
+                images.push(`<img src="DR-images/${value}.png">`);
+            }
+            diceResult.textContent = `dice: ${values.join(', ')}`;
+            diceImages.innerHTML = images.join('');
+
             if (values[0] == values[1] && values[0] % 2 == 0 && values[1] % 2 == 0) {
                 console.log('double double double');
                 score += 10;
